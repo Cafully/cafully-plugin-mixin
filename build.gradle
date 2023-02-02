@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+group 'cn.enaium'
+version '8.5'
+
+jar {
+    manifest.attributes(
+            'Manifest-Version': 1.0,
+            'Main-Class': 'cn.enaium.cafully.mixin.Mixin'
+    )
+}
+
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spongepowered.org/repository/maven-public/' }
+}
+
+dependencies {
+    compileOnly 'cn.enaium.cafully:cafully-api:1.0.0'
+
+    implementation 'org.spongepowered:mixin:0.8.5'
+    implementation 'com.google.guava:guava:31.1-jre'
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    compileOnly 'org.ow2.asm:asm-tree:9.4'
+    compileOnly 'org.ow2.asm:asm-util:9.4'
+    compileOnly 'org.ow2.asm:asm-commons:9.4'
+    compileOnly 'org.ow2.asm:asm-analysis:9.4'
+}
+
+shadowJar {
+    archiveClassifier.set('')
+}
+
+build.dependsOn shadowJar
