@@ -64,7 +64,7 @@ public class Mixin implements IInitializer {
 
             @Override
             public byte[] before(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] basic) throws Exception {
-                final String name = className.replace("/", ".");
+                final String name = (className != null ? className : classBeingRedefined.getName()).replace("/", ".");
                 final ClassReader classReader = new ClassReader(basic);
                 final ClassNode classNode = new ClassNode();
                 classReader.accept(classNode, 0);
